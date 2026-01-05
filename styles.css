@@ -570,10 +570,12 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(107, 125, 92, 0.2);
+    
 }
 
 .slide {
     display: none;
+    width: 100%;
     position: relative;
 }
 
