@@ -667,131 +667,308 @@ body {
     font-weight: 300;
 }
 
-.slideshow-container {
-    max-width: 900px;
-    position: relative;
-    margin: 0 auto;
+/* Gallery Categories */
+.gallery-categories {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.category-btn {
     background: var(--white);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(107, 125, 92, 0.2);
-    
+    border: 2px solid var(--light-green);
+    color: var(--primary-green);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(107, 125, 92, 0.1);
 }
 
-.slide {
-    display: none;
-    width: 100%;
+.category-btn:hover {
+    background: var(--primary-green);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 125, 92, 0.2);
+}
+
+.category-btn.active {
+    background: var(--primary-green);
+    color: var(--white);
+    box-shadow: 0 6px 20px rgba(107, 125, 92, 0.3);
+}
+
+/* Gallery Swipe Carousel */
+.gallery-swipe-container {
     position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.slide.active {
-    display: block;
+.gallery-swipe-wrapper {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    gap: 2rem;
 }
 
-.slide img {
-   width: 100%;
-    aspect-ratio: 4 / 5; /* PERFECT for flowers */
+.gallery-slide {
+    position: relative;
+    flex: 0 0 300px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(107, 125, 92, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 400px;
+    background: var(--white);
+}
+
+.gallery-slide:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(107, 125, 92, 0.25);
+}
+
+.gallery-slide img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    display: block;
+    transition: transform 0.5s ease;
 }
 
-.slide-caption {
+.gallery-slide:hover img {
+    transform: scale(1.05);
+}
+
+/* Gallery Slide Overlay */
+.gallery-slide-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    color: var(--white);
     padding: 2rem;
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.slide-btn {
+.gallery-slide:hover .gallery-slide-overlay {
+    transform: translateY(0);
+}
+
+.gallery-slide-category {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--light-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.gallery-slide-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* Gallery Swipe Controls */
+.gallery-swipe-controls {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background:transparent;
-    color: var(--white);
-    border: none;
-    font-size: 2rem;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
     z-index: 10;
 }
 
-.slide-btn:hover {
-    background: transparent;
-    transform: translateY(-50%) scale(1.1);
-}
-
-.slide-btn.prev {
-    left: 1rem;
-}
-
-.slide-btn.next {
-    right: 1rem;
-}
-
-.slide-dots {
-    text-align: center;
-    padding: 2rem 0;
-}
-
-.dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: var(--light-green);
+.gallery-swipe-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+}
+
+.gallery-swipe-btn:hover {
+    background: var(--white);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-swipe-btn.prev {
+    margin-left: 20px;
+}
+
+.gallery-swipe-btn.next {
+    margin-right: 20px;
+}
+
+.gallery-swipe-btn span {
+    pointer-events: none;
+}
+
+/* Gallery Swipe Indicators */
+.gallery-swipe-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+.gallery-swipe-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--light-green);
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
-.dot:hover,
-.dot.active {
-    background-color: var(--primary-green);
+.gallery-swipe-indicator:hover {
+    background: var(--primary-green);
     transform: scale(1.2);
 }
 
-.fade {
-    animation-name: fade;
-    animation-duration: 1s;
+.gallery-swipe-indicator.active {
+    background: var(--primary-green);
+    border-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
-@keyframes fade {
+/* Hidden class for filtering */
+.hidden {
+    display: none !important;
+}
+
+/* Remove old grid styles */
+.gallery-grid,
+.gallery-item,
+.gallery-overlay,
+.gallery-category,
+.gallery-title {
+    display: none !important;
+}
+
+/* Gallery Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: var(--white);
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    animation: slideUp 0.4s ease;
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: var(--text-dark);
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 25px 25px 0 0;
+    margin: 0 auto;
+    display: block;
+}
+
+.modal-caption {
+    padding: 1.5rem;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--primary-green);
+    font-weight: 600;
+    background: var(--cream);
+    border-radius: 0 0 25px 25px;
+}
+
+@keyframes slideUp {
     from {
-        opacity: 0.4;
+        transform: translateY(50px);
+        opacity: 0;
     }
     to {
+        transform: translateY(0);
         opacity: 1;
     }
 }
 
+/* Hidden class for filtering */
+.hidden {
+    display: none !important;
+}
+
+/* Remove old slideshow styles */
+.slideshow-container,
+.slide,
+.slide-btn,
+.slide-dots,
+.dot,
 .gallery-note {
-    background: linear-gradient(135deg, var(--sage-green), var(--light-green));
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-top: 3rem;
-    text-align: center;
-}
-
-.gallery-note p {
-    color: var(--white);
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.gallery-note code {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 0.3rem 0.6rem;
-    border-radius: 5px;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
+    display: none !important;
 }
 
 /* ========================================
@@ -1167,3 +1344,4 @@ body {
         transform: scale(1.1);
     }
 }
+
